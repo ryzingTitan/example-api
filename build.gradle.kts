@@ -6,11 +6,11 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 plugins {
     id("org.springframework.boot") version "2.7.5"
     id("io.spring.dependency-management") version "1.1.0"
-    kotlin("jvm") version "1.7.20"
-    kotlin("plugin.spring") version "1.7.20"
+    kotlin("jvm") version "1.7.21"
+    kotlin("plugin.spring") version "1.7.21"
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
     id("io.gitlab.arturbosch.detekt") version "1.21.0"
-    id("com.github.ben-manes.versions") version "0.43.0"
+    id("com.github.ben-manes.versions") version "0.44.0"
     jacoco
 }
 
@@ -34,12 +34,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.0")
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.2.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-    implementation("org.liquibase:liquibase-core")
+    implementation("org.liquibase:liquibase-core:4.17.2")
     implementation("net.logstash.logback:logstash-logback-encoder:7.2")
     runtimeOnly("io.r2dbc:r2dbc-postgresql:0.8.13.RELEASE")
     runtimeOnly("org.postgresql:postgresql:42.5.0")
@@ -49,11 +49,11 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
     testImplementation("org.junit.platform:junit-platform-suite-api:1.9.1")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
-    testImplementation("io.cucumber:cucumber-java:7.8.1")
-    testImplementation("io.cucumber:cucumber-junit-platform-engine:7.8.1")
-    testImplementation("io.cucumber:cucumber-spring:7.8.1")
-    testImplementation("io.projectreactor:reactor-test:3.4.24")
-    testImplementation("com.github.tomakehurst:wiremock-jre8:2.34.0")
+    testImplementation("io.cucumber:cucumber-java:7.9.0")
+    testImplementation("io.cucumber:cucumber-junit-platform-engine:7.9.0")
+    testImplementation("io.cucumber:cucumber-spring:7.9.0")
+    testImplementation("io.projectreactor:reactor-test:3.5.0")
+    testImplementation("com.github.tomakehurst:wiremock-jre8:2.35.0")
     testRuntimeOnly("io.r2dbc:r2dbc-h2")
     testRuntimeOnly("com.h2database:h2")
 }
