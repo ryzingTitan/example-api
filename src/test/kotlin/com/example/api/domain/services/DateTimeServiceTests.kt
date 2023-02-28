@@ -51,7 +51,7 @@ class DateTimeServiceTests {
         currentInstant.epochSecond,
         "",
         "",
-        1
+        1,
     )
     private val expectedDateTime = currentInstant.truncatedTo(ChronoUnit.SECONDS)
 

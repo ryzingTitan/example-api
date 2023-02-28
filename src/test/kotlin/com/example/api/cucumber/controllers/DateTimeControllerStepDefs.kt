@@ -33,7 +33,7 @@ class DateTimeControllerStepDefs {
     }
 
     private suspend fun handleResponse(clientResponse: ClientResponse) {
-        responseStatus = clientResponse.statusCode()
+        responseStatus = clientResponse.statusCode() as HttpStatus
 
         if (clientResponse.statusCode() == HttpStatus.OK) {
             currentDateTime = clientResponse.awaitEntity<Instant>().body

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping(path = ["/api/users"])
 class UserController(
     private val loggingService: LoggingService,
-    private val userService: UserService
+    private val userService: UserService,
 ) {
     private val logger = LoggerFactory.getLogger(UserController::class.java)
 
@@ -29,7 +29,7 @@ class UserController(
         this.loggingService.info(
             logger,
             userId,
-            "Retrieving user data for user id $userId"
+            "Retrieving user data for user id $userId",
         )
 
         return userService.getUserById(userId)
