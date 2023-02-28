@@ -5,6 +5,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
+import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component
 import java.time.Instant
 
 @Component
+@Profile("test")
 class ExternalDateTimeServer {
     private val wireMockServer = WireMockServer(WireMockConfiguration.wireMockConfig().port(8090))
 
@@ -27,8 +29,8 @@ class ExternalDateTimeServer {
                     aResponse()
                         .withStatus(HttpStatus.OK.value())
                         .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                        .withBody(responseBody.replace("<currentInstant>", currentInstant.epochSecond.toString()))
-                )
+                        .withBody(responseBody.replace("<currentInstant>", currentInstant.epochSecond.toString())),
+                ),
         )
     }
 

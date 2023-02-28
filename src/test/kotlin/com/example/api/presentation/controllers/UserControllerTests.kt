@@ -65,7 +65,9 @@ class UserControllerTests : CommonControllerTests() {
                 .expectStatus().isNotFound
 
             verify(mockLoggingService, times(1)).info(
-                any(), eq(firstUser.id), eq("Retrieving user data for user id ${firstUser.id}")
+                any(),
+                eq(firstUser.id),
+                eq("Retrieving user data for user id ${firstUser.id}"),
             )
             verify(mockUserService, times(1)).getUserById(firstUser.id)
         }
@@ -82,7 +84,9 @@ class UserControllerTests : CommonControllerTests() {
                 .expectBody(User::class.java).isEqualTo(firstUser)
 
             verify(mockLoggingService, times(1)).info(
-                any(), eq(firstUser.id), eq("Retrieving user data for user id ${firstUser.id}")
+                any(),
+                eq(firstUser.id),
+                eq("Retrieving user data for user id ${firstUser.id}"),
             )
             verify(mockUserService, times(1)).getUserById(firstUser.id)
         }
@@ -92,14 +96,14 @@ class UserControllerTests : CommonControllerTests() {
         id = 1,
         firstName = FIRST_NAME,
         lastName = LAST_NAME,
-        fullName = "$FIRST_NAME $LAST_NAME"
+        fullName = "$FIRST_NAME $LAST_NAME",
     )
 
     private val secondUser = User(
         id = 2,
         firstName = FIRST_NAME,
         lastName = LAST_NAME,
-        fullName = "$FIRST_NAME $LAST_NAME"
+        fullName = "$FIRST_NAME $LAST_NAME",
     )
 
     companion object UserControllerTestConstants {

@@ -32,7 +32,7 @@ class UserService(private val userRepository: UserRepository) {
             id = userEntity.id ?: 0,
             firstName = userEntity.firstName,
             lastName = userEntity.lastName,
-            fullName = "${userEntity.firstName} ${userEntity.lastName}"
+            fullName = "${userEntity.firstName} ${userEntity.lastName}",
         )
     }
 }

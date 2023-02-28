@@ -74,13 +74,13 @@ class UserServiceTests {
         id = 1,
         username = "testUser",
         firstName = "test",
-        lastName = "user"
+        lastName = "user",
     )
 
     private val user = User(
         id = 1,
         firstName = "test",
         lastName = "user",
-        fullName = "test user"
+        fullName = "test user",
     )
 }

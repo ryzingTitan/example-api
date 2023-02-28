@@ -10,7 +10,7 @@ import org.springframework.web.reactive.function.client.awaitBody
 @Repository
 class DateTimeRepository(
     @Qualifier("External Date Time Server")
-    private val externalDateTimeServer: WebClient
+    private val externalDateTimeServer: WebClient,
 ) {
     suspend fun getCurrentDateAndTime(area: String, location: String): DateTimeEntity {
         return externalDateTimeServer

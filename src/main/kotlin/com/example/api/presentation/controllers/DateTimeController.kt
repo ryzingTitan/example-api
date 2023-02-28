@@ -13,7 +13,7 @@ class DateTimeController(private val dateTimeService: DateTimeService) {
     @GetMapping(path = ["/{area}/{location}"])
     suspend fun getCurrentDateAndTimeByLocation(
         @PathVariable(name = "area") area: String,
-        @PathVariable(name = "location") location: String
+        @PathVariable(name = "location") location: String,
     ): Instant {
         return dateTimeService.getCurrentDateAndTime(area, location)
     }

@@ -12,7 +12,7 @@ import org.springframework.r2dbc.core.await
 
 class UserRepositoryStepDefs(
     private val userRepository: UserRepository,
-    private val databaseClient: DatabaseClient
+    private val databaseClient: DatabaseClient,
 ) {
     @Given("the following users exist")
     fun theFollowingUsersExist(table: DataTable) {
@@ -38,7 +38,7 @@ class UserRepositoryStepDefs(
             id = null,
             firstName = tableRow["firstName"].toString(),
             lastName = tableRow["lastName"].toString(),
-            username = tableRow["username"].toString()
+            username = tableRow["username"].toString(),
         )
     }
 }

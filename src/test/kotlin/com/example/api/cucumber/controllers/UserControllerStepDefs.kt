@@ -73,29 +73,31 @@ class UserControllerStepDefs {
             id = tableRow["id"]?.toInt() ?: 0,
             firstName = tableRow["firstName"].toString(),
             lastName = tableRow["lastName"].toString(),
-            fullName = tableRow["fullName"].toString()
+            fullName = tableRow["fullName"].toString(),
         )
     }
 
     private suspend fun handleSingleUserResponse(clientResponse: ClientResponse) {
-        responseStatus = clientResponse.statusCode()
+        responseStatus = clientResponse.statusCode() as HttpStatus
 
         if (clientResponse.statusCode() == HttpStatus.OK) {
             val user = clientResponse.awaitEntity<User>().body
 
-            if (user != null)
+            if (user != null) {
                 returnedUsers.add(user)
+            }
         }
     }
 
     private suspend fun handleMultipleUserResponse(clientResponse: ClientResponse) {
-        responseStatus = clientResponse.statusCode()
+        responseStatus = clientResponse.statusCode() as HttpStatus
 
         if (clientResponse.statusCode() == HttpStatus.OK) {
             val userList = clientResponse.awaitEntityList<User>().body
 
-            if (userList != null)
+            if (userList != null) {
                 returnedUsers.addAll(userList)
+            }
         }
     }
 
