@@ -2,16 +2,17 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+import java.util.*
 
 plugins {
-    id("org.springframework.boot") version "3.0.3"
+    id("org.springframework.boot") version "3.0.6"
     id("io.spring.dependency-management") version "1.1.0"
-    kotlin("jvm") version "1.8.10"
-    kotlin("plugin.spring") version "1.8.10"
-    id("org.jlleitschuh.gradle.ktlint") version "11.2.0"
+    kotlin("jvm") version "1.8.21"
+    kotlin("plugin.spring") version "1.8.21"
+    id("org.jlleitschuh.gradle.ktlint") version "11.3.2"
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
     id("com.github.ben-manes.versions") version "0.46.0"
-    id("org.graalvm.buildtools.native") version "0.9.20"
+    id("org.graalvm.buildtools.native") version "0.9.22"
     jacoco
 }
 
@@ -35,25 +36,25 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.2.1")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.0")
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.2.2")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-    implementation("org.liquibase:liquibase-core:4.19.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.7.1")
+    implementation("org.liquibase:liquibase-core:4.22.0")
     implementation("net.logstash.logback:logstash-logback-encoder:7.3")
     runtimeOnly("io.r2dbc:r2dbc-postgresql:0.8.13.RELEASE")
-    runtimeOnly("org.postgresql:postgresql:42.5.4")
+    runtimeOnly("org.postgresql:postgresql:42.6.0")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
-    testImplementation("org.junit.platform:junit-platform-suite-api:1.9.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    testImplementation("org.junit.platform:junit-platform-suite-api:1.9.3")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
-    testImplementation("io.cucumber:cucumber-java:7.11.1")
-    testImplementation("io.cucumber:cucumber-junit-platform-engine:7.11.1")
-    testImplementation("io.cucumber:cucumber-spring:7.11.1")
-    testImplementation("io.projectreactor:reactor-test:3.5.3")
+    testImplementation("io.cucumber:cucumber-java:7.12.0")
+    testImplementation("io.cucumber:cucumber-junit-platform-engine:7.12.0")
+    testImplementation("io.cucumber:cucumber-spring:7.12.0")
+    testImplementation("io.projectreactor:reactor-test:3.5.6")
     testImplementation("com.github.tomakehurst:wiremock-jre8-standalone:2.35.0")
     testRuntimeOnly("io.r2dbc:r2dbc-h2")
     testRuntimeOnly("com.h2database:h2")
@@ -75,8 +76,12 @@ tasks.getByName("addKtlintFormatGitPreCommitHook") {
     dependsOn("processResources")
     dependsOn("processTestResources")
     dependsOn("ktlintMainSourceSetCheck")
+    dependsOn("ktlintMainSourceSetFormat")
+    dependsOn("runKtlintFormatOverMainSourceSet")
     dependsOn("ktlintTestSourceSetCheck")
+    dependsOn("ktlintTestSourceSetFormat")
     dependsOn("ktlintKotlinScriptCheck")
+    dependsOn("ktlintKotlinScriptFormat")
     dependsOn("collectReachabilityMetadata")
     dependsOn("detekt")
 }
@@ -105,7 +110,7 @@ tasks.withType<Detekt>().configureEach {
 }
 
 jacoco {
-    toolVersion = "0.8.8"
+    toolVersion = "0.8.9"
 }
 
 tasks.jacocoTestReport {
@@ -150,7 +155,7 @@ tasks.withType<DependencyUpdatesTask> {
 }
 
 fun String.isNonStable(): Boolean {
-    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { toUpperCase().contains(it) }
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { uppercase(Locale.getDefault()).contains(it) }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()
     val isStable = stableKeyword || regex.matches(this)
     return isStable.not()
